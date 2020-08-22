@@ -1,2 +1,44 @@
 server:
   port: 8090
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/work?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
+    password: 123456
+    username: java
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+      # 连接池
+    druid:
+      max-active: 20
+      initial-size: 5
+      min-idle: 5
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+      max-pool-prepared-statement-per-connection-size: 20
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      use-global-data-source-stat: true
+      max-wait: 60000
+
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.stictch.entity
+
+
+  configuration:
+    #返回map时 true:当查询的数据为空时字段返回null ;false : 不加这个查询数据为空时，字段将被隐藏
+    call-setters-on-nulls: true
+    cache-enabled: false
+    #sql日志打印
+    #开启驼峰映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    jdbc-type-for-null: 'null'
