@@ -27,6 +27,7 @@ public class User {
      * password
      */
     private String passWord;
+    private String sex;
     /**
      * phoneNumber
      */
