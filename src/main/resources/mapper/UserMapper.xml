@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.UserDao">
+    <resultMap id="user" type="com.stictch.entity.User">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="passWord" column="pass_word"/>
+        <result property="sex" column="user_sex"/>
+        <result property="age" column="user_age"/>
+        <result property="phone" column="user_phone_num"/>
+        <result property="email" column="user_email"/>
+        <result property="address" column="user_address"/>
+        <result property="role" column="role"/>
+
+
+    </resultMap>
+
+
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="userName !=null">
+                #{userName},
+            </if>
+            <if test="passWord !=null">
+                #{passWord},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="phoneNum != null">
+                #{phoneNum},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="role != null">
+                #{role},
+            </if>
+        </trim>
+    </sql>
+<!--    <insert id="add" parameterType="cn.edu.svtcc.entity.User" statementType="CALLABLE">-->
+<!--        {call register(#{userId},#{userName},#{passWord},#{sex},#{age},#{phoneNum},#{email},#{address},#{role})}-->
+<!--    </insert>-->
+<!--    <delete id="delete" statementType="CALLABLE">-->
+<!--        {call deleteUserById(#{user_id})}-->
+<!--    </delete>-->
+<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="user" statementType="CALLABLE">-->
+<!--        {call findById(#{user_id})}-->
+<!--    </select>-->
+    <select id="findAll" resultType="com.stictch.entity.User" statementType="CALLABLE" resultMap="user">
+        {call findAll()}
+    </select>
+
+</mapper>
