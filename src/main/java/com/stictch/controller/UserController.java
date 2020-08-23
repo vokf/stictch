@@ -1,7 +1,12 @@
 package com.stictch.controller;
 
+import com.stictch.entity.User;
+import com.stictch.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author demo
@@ -12,5 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+
+    private UserService service;
+
+    @Autowired
+    public void setService(UserService service) {
+        this.service = service;
+    }
+
+    @RequestMapping("all")
+    public List<User> all() {
+        return service.findAll();
+    }
 
 }
