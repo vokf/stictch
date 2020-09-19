@@ -53,4 +53,12 @@ public class UserController {
         User result = service.userLogin(user);
         return result != null ? Result.success() : Result.fail();
     }
+
+
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public Result userRegister(@RequestBody String json) {
+        User user = JSON.parseObject(json, User.class);
+        service.userRegister(user);
+        return  Result.success();
+    }
 }
