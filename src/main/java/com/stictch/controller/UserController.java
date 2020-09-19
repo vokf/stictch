@@ -38,14 +38,12 @@ public class UserController {
     }
 
 
-    //    @RequestMapping(value = "/doI", produces = {"text/html;charset=UTF-8"}, method = {RequestMethod.POST,RequestMethod.GET})
-//    public String doI(HttpServletRequest request, HttpServletResponse response) {
-//        System.out.println(request.getParameter("userName"));
-//        System.out.println(request.getParameter("password"));
-//        System.out.println(request.getParameter("phone"));
-//        return "OK";
-//    }
-
+    /**
+     * 登录
+     *
+     * @param json json
+     * @return result
+     */
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     public Result userLogin(@RequestBody String json) {
         System.out.println(json);
@@ -55,10 +53,16 @@ public class UserController {
     }
 
 
+    /**
+     * 注册
+     *
+     * @param json json
+     * @return result
+     */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public Result userRegister(@RequestBody String json) {
         User user = JSON.parseObject(json, User.class);
         service.userRegister(user);
-        return  Result.success();
+        return Result.success();
     }
 }
