@@ -1,5 +1,9 @@
 package com.stictch.service;
 
+import com.stictch.entity.User;
+
+import java.util.List;
+
 /**
  * @author demo
  * @title UserService
@@ -8,4 +12,23 @@ package com.stictch.service;
  */
 
 public interface UserService {
+    /**
+     *  查询所有
+     * @return all
+     */
+    List<User> findAll();
+
+    /**
+     * 登录
+     * @param user user
+     * @return user
+     */
+    User userLogin(User user);
+
+    /**
+     * 注册
+     * @param user user
+     * @return int
+     */
+    int userRegister(User user);
 }
