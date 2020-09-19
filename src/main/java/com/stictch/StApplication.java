@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author demo
- * @title StictchAppLication
+ * @title StApplication
  * @description
  * @date 2020/08/22/21:07
  */
