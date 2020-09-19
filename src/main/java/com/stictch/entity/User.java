@@ -27,27 +27,30 @@ public class User {
      * password
      */
     private String passWord;
-    private String sex;
-    /**
-     * phoneNumber
-     */
-    private String phone;
     /**
      * age
      */
     private Integer age;
     /**
+     * 性别
+     */
+    private String gender;
+
+
+    /**
+     * phoneNumber
+     */
+    private String phone;
+
+    /**
      * email
      */
     private String email;
-    /**
-     * address
-     *
-     */
-    private String address;
+
+
     /**
      * role
      */
-    private String role;
+    private String special;
 
 }
