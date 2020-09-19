@@ -22,5 +22,19 @@ public interface UserDao {
      */
     List<User> findAll();
 
+    /**
+     * 登录
+     * @param user user
+     * @return User
+     */
+    User userLogin(User user);
+
+    /**
+     * 注册
+     * @param user user
+     * @return int
+     */
+    int userRegister(User user);
+
 
 }
