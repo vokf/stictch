@@ -5,16 +5,20 @@
     <resultMap id="user" type="com.stictch.entity.User">
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
-        <result property="passWord" column="pass_word"/>
-        <result property="sex" column="user_sex"/>
+        <result property="passWord" column="user_password"/>
+        <result property="gender" column="user_gender"/>
         <result property="age" column="user_age"/>
         <result property="phone" column="user_phone_num"/>
         <result property="email" column="user_email"/>
-        <result property="address" column="user_address"/>
-        <result property="role" column="role"/>
-
-
+        <result property="special" column="user_special"/>
     </resultMap>
+    <parameterMap id="map" type="com.stictch.entity.User">
+
+        <parameter property="passWord" javaType="String"/>
+        <parameter property="userName" javaType="String"/>
+        <parameter property="phone" javaType="Integer"/>
+        <parameter property="email" javaType="String"/>
+    </parameterMap>
 
 
     <sql id="value">
@@ -48,7 +52,8 @@
             </if>
         </trim>
     </sql>
-<!--    <insert id="add" parameterType="cn.edu.svtcc.entity.User" statementType="CALLABLE">-->
+
+    <!--    <insert id="add" parameterType="cn.edu.svtcc.entity.User" statementType="CALLABLE">-->
 <!--        {call register(#{userId},#{userName},#{passWord},#{sex},#{age},#{phoneNum},#{email},#{address},#{role})}-->
 <!--    </insert>-->
 <!--    <delete id="delete" statementType="CALLABLE">-->
@@ -57,8 +62,14 @@
 <!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="user" statementType="CALLABLE">-->
 <!--        {call findById(#{user_id})}-->
 <!--    </select>-->
-    <select id="findAll" resultType="com.stictch.entity.User" statementType="CALLABLE" resultMap="user">
+    <select id="findAll"  statementType="CALLABLE" resultMap="user">
         {call findAll()}
-    </select>
 
+    </select>
+    <select id="userLogin"  resultMap="user" parameterMap="map">
+        select user_name,user_password from ordinary_user where user_name = #{userName} and user_password = sha1(md5(#{passWord}));
+    </select>
+    <insert id="userRegister" parameterMap="map">
+        insert into ordinary_user(user_name, user_password, user_phone_num, user_email) values (#{userName},sha1(md5(#{passWord})),#{phone},#{email});
+    </insert>
 </mapper>
