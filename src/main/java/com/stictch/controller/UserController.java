@@ -1,8 +1,8 @@
 package com.stictch.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.stictch.entity.OrdinaryUser;
 import com.stictch.entity.Result;
-import com.stictch.entity.User;
 import com.stictch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -33,7 +31,7 @@ public class UserController {
     }
 
     @RequestMapping("all")
-    public List<User> all() {
+    public List<OrdinaryUser> all() {
         return service.findAll();
     }
 
@@ -47,8 +45,9 @@ public class UserController {
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     public Result userLogin(@RequestBody String json) {
         System.out.println(json);
-        User user = JSON.parseObject(json, User.class);
-        User result = service.userLogin(user);
+        OrdinaryUser ordinaryUser = JSON.parseObject(json, OrdinaryUser.class);
+        OrdinaryUser result = service.userLogin(ordinaryUser);
+
         return result != null ? Result.success() : Result.fail();
     }
 
@@ -61,8 +60,8 @@ public class UserController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public Result userRegister(@RequestBody String json) {
-        User user = JSON.parseObject(json, User.class);
-        service.userRegister(user);
+        OrdinaryUser ordinaryUser = JSON.parseObject(json, OrdinaryUser.class);
+        service.userRegister(ordinaryUser);
         return Result.success();
     }
 }
