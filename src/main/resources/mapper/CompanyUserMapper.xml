@@ -4,5 +4,12 @@
 <mapper namespace="com.stictch.dao.CompanyUserDao">
     <resultMap id="result" type="com.stictch.entity.CompanyUser">
 
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="user_password"/>
+        <result property="companyName" column="company_name"/>
+        <result property="phone" column="phone"/>
+        <result property="companyEmail" column="company_email"/>
+        <result property="companyLocation" column="company_location"/>
     </resultMap>
 </mapper>
