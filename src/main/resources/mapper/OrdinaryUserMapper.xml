@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.stictch.dao.UserDao">
-    <resultMap id="user" type="com.stictch.entity.User">
+<mapper namespace="com.stictch.dao.OrdinaryUserDao">
+    <resultMap id="ordinaryUser" type="com.stictch.entity.OrdinaryUser">
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="passWord" column="user_password"/>
@@ -12,7 +12,7 @@
         <result property="email" column="user_email"/>
         <result property="special" column="user_special"/>
     </resultMap>
-    <parameterMap id="map" type="com.stictch.entity.User">
+    <parameterMap id="map" type="com.stictch.entity.OrdinaryUser">
 
         <parameter property="passWord" javaType="String"/>
         <parameter property="userName" javaType="String"/>
@@ -59,14 +59,14 @@
 <!--    <delete id="delete" statementType="CALLABLE">-->
 <!--        {call deleteUserById(#{user_id})}-->
 <!--    </delete>-->
-<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="user" statementType="CALLABLE">-->
+<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="ordinaryUser" statementType="CALLABLE">-->
 <!--        {call findById(#{user_id})}-->
 <!--    </select>-->
-    <select id="findAll"  statementType="CALLABLE" resultMap="user">
+    <select id="findAll"  statementType="CALLABLE" resultMap="ordinaryUser">
         {call findAll()}
 
     </select>
-    <select id="userLogin"  resultMap="user" parameterMap="map">
+    <select id="userLogin"  resultMap="ordinaryUser" parameterMap="map">
         select user_name,user_password from ordinary_user where user_name = #{userName} and user_password = sha1(md5(#{passWord}));
     </select>
     <insert id="userRegister" parameterMap="map">
