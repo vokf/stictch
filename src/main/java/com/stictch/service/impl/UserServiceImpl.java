@@ -1,7 +1,7 @@
 package com.stictch.service.impl;
 
-import com.stictch.dao.UserDao;
-import com.stictch.entity.User;
+import com.stictch.dao.OrdinaryUserDao;
+import com.stictch.entity.OrdinaryUser;
 import com.stictch.service.UserService;
 
 import lombok.extern.log4j.Log4j;
@@ -24,38 +24,38 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
-    private UserDao dao;
+    private OrdinaryUserDao dao;
 
     @Autowired
-    public void setDao(UserDao dao) {
+    public void setDao(OrdinaryUserDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<OrdinaryUser> findAll() {
         return dao.findAll();
     }
 
     @Override
-    public User userLogin(User user) {
-        if (user.getUserName() == null || user.getPassWord() == null) {
+    public OrdinaryUser userLogin(OrdinaryUser ordinaryUser) {
+        if (ordinaryUser.getUserName() == null || ordinaryUser.getPassWord() == null) {
             log.error("用户名或者密码为空");
             return null;
         } else {
-            return dao.userLogin(user);
+            return dao.userLogin(ordinaryUser);
         }
 
     }
 
     @Override
-    public int userRegister(User user) {
+    public int userRegister(OrdinaryUser ordinaryUser) {
 
-        if (user.getUserName() == null || user.getPassWord() == null || user.getPhone() == null || user.getEmail() == null) {
+        if (ordinaryUser.getUserName() == null || ordinaryUser.getPassWord() == null || ordinaryUser.getPhone() == null || ordinaryUser.getEmail() == null) {
 
             log.error("用户名或者密码或者电话号码，或者邮箱为空");
             return 0;
         } else {
-            return dao.userRegister(user);
+            return dao.userRegister(ordinaryUser);
         }
 
     }
