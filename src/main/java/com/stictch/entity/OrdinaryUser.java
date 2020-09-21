@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * @author demo
  * @title User
@@ -13,43 +15,44 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class OrdinaryUser {
+public class OrdinaryUser implements Serializable {
 
     /**
-     * userId
+     * 普通用户id
      */
+
     private Integer userId;
     /**
-     * userName
+     * 普通用户昵称
      */
-    private String  userName;
+    private String userName;
     /**
-     * password
+     * 普通用户密码
      */
     private String passWord;
     /**
-     * age
+     * 普通用户年龄
      */
     private Integer age;
     /**
-     * 性别
+     * 普通用户性别
      */
     private String gender;
 
 
     /**
-     * phoneNumber
+     * 普通用户电话号码
      */
     private String phone;
 
     /**
-     * email
+     * 普通用户邮箱
      */
     private String email;
 
 
     /**
-     * role
+     * 普通用户的特长
      */
     private String special;
 
