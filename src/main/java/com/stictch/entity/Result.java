@@ -3,6 +3,8 @@ package com.stictch.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 
 /**
  * @author demo
@@ -12,7 +14,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class Result {
+public class Result implements Serializable {
     private Object data;
     private static int SUCCESS = 1;
     private static int FAIL = 0;
