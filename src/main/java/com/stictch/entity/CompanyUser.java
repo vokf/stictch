@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * @author demo
  * @title CompanyUser
@@ -13,7 +15,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CompanyUser {
+public class CompanyUser implements Serializable {
     /**
      * 用户Id
      */
