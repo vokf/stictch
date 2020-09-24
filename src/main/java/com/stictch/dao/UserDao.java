@@ -1,7 +1,8 @@
 package com.stictch.dao;
 
-import com.stictch.entity.OrdinaryUser;
+import com.stictch.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,27 +15,27 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface OrdinaryUserDao {
+public interface UserDao {
 
     /**
      * 查询所有
      * @return all
      */
-    List<OrdinaryUser> findAll();
+    User findByUserName(@Param("userName") String userName);
 
     /**
      * 登录
-     * @param ordinaryUser user
+     * @param user user
      * @return User
      */
-    OrdinaryUser userLogin(OrdinaryUser ordinaryUser);
+    User userLogin(User user);
 
     /**
      * 注册
-     * @param ordinaryUser user
+     * @param user user
      * @return int
      */
-    int userRegister(OrdinaryUser ordinaryUser);
+    int userRegister(User user);
 
 
 }
