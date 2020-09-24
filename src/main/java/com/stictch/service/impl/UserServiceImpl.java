@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserName(String userName) {
+        if (userName == null || "".equals(userName)) {
+            log.error("没有输入用户名");
+        }
+
         return dao.findByUserName(userName);
     }
 
