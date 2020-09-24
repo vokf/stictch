@@ -1,6 +1,6 @@
 package com.stictch.service;
 
-import com.stictch.entity.OrdinaryUser;
+import com.stictch.entity.User;
 
 import java.util.List;
 
@@ -16,19 +16,19 @@ public interface UserService {
      *  查询所有
      * @return all
      */
-    List<OrdinaryUser> findAll();
+    User findByUserName(String userName);
 
     /**
      * 登录
-     * @param ordinaryUser user
+     * @param user user
      * @return user
      */
-    OrdinaryUser userLogin(OrdinaryUser ordinaryUser);
+    User userLogin(User user);
 
     /**
      * 注册
-     * @param ordinaryUser user
+     * @param user user
      * @return int
      */
-    int userRegister(OrdinaryUser ordinaryUser);
+    int userRegister(User user);
 }
