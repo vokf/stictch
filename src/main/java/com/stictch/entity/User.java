@@ -15,12 +15,11 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public class OrdinaryUser implements Serializable {
+public class User implements Serializable {
 
     /**
      * 普通用户id
      */
-
     private Integer userId;
     /**
      * 普通用户昵称
@@ -38,19 +37,22 @@ public class OrdinaryUser implements Serializable {
      * 普通用户性别
      */
     private String gender;
-
-
     /**
      * 普通用户电话号码
      */
     private String phone;
-
+    /**
+     * 公司名称
+     */
+    private String companyName;
+    /**
+     * 公司地址
+     */
+    private String companyLocation;
     /**
      * 普通用户邮箱
      */
     private String email;
-
-
     /**
      * 普通用户的特长
      */
