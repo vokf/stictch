@@ -13,8 +13,9 @@ import java.util.List;
 
 public interface UserService {
     /**
-     *  查询所有
-     * @return all
+     * 注册前查询该用户是否重名
+     * @param userName name
+     * @return user
      */
     User findByUserName(String userName);
 
