@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.stictch.dao.OrdinaryUserDao">
-    <resultMap id="ordinaryUser" type="com.stictch.entity.OrdinaryUser">
+<mapper namespace="com.stictch.dao.UserDao">
+    <resultMap id="user" type="com.stictch.entity.User">
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="passWord" column="user_password"/>
@@ -11,8 +11,9 @@
         <result property="phone" column="user_phone_num"/>
         <result property="email" column="user_email"/>
         <result property="special" column="user_special"/>
+
     </resultMap>
-    <parameterMap id="map" type="com.stictch.entity.OrdinaryUser">
+    <parameterMap id="map" type="com.stictch.entity.User">
 
         <parameter property="passWord" javaType="String"/>
         <parameter property="userName" javaType="String"/>
@@ -59,17 +60,19 @@
 <!--    <delete id="delete" statementType="CALLABLE">-->
 <!--        {call deleteUserById(#{user_id})}-->
 <!--    </delete>-->
-<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="ordinaryUser" statementType="CALLABLE">-->
+<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="user" statementType="CALLABLE">-->
 <!--        {call findById(#{user_id})}-->
 <!--    </select>-->
-    <select id="findAll"  statementType="CALLABLE" resultMap="ordinaryUser">
-        {call findAll()}
-
+    <select id="findByUserName" parameterType="String" resultMap="user">
+        select user_id,user_name from user where
+            <if test="userName!=null and userName !=''">
+                user_name = #{userName}
+            </if>
     </select>
-    <select id="userLogin"  resultMap="ordinaryUser" parameterMap="map">
-        select user_name,user_password from ordinary_user where user_name = #{userName} and user_password = sha1(md5(#{passWord}));
+    <select id="userLogin"  resultMap="user" parameterMap="map">
+        select user_name,user_password from user where user_name = #{userName} and user_password = sha1(md5(#{passWord}));
     </select>
     <insert id="userRegister" parameterMap="map">
-        insert into ordinary_user(user_name, user_password, user_phone_num, user_email) values (#{userName},sha1(md5(#{passWord})),#{phone},#{email});
+        insert into user(user_name, user_password, user_phone, user_email) values (#{userName},sha1(md5(#{passWord})),#{phone},#{email});
     </insert>
 </mapper>
