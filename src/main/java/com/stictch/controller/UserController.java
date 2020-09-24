@@ -1,7 +1,7 @@
 package com.stictch.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.stictch.entity.OrdinaryUser;
+import com.stictch.entity.User;
 import com.stictch.entity.Result;
 import com.stictch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +30,10 @@ public class UserController {
         this.service = service;
     }
 
-    @RequestMapping("all")
-    public List<OrdinaryUser> all() {
-        return service.findAll();
-    }
+//    @RequestMapping("all")
+//    public List<User> all() {
+//        return service.findAll();
+//    }
 
 
     /**
@@ -45,8 +45,8 @@ public class UserController {
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     public Result userLogin(@RequestBody String json) {
         System.out.println(json);
-        OrdinaryUser ordinaryUser = JSON.parseObject(json, OrdinaryUser.class);
-        OrdinaryUser result = service.userLogin(ordinaryUser);
+        User user = JSON.parseObject(json, User.class);
+        User result = service.userLogin(user);
 
         return result != null ? Result.success() : Result.fail();
     }
@@ -60,8 +60,8 @@ public class UserController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public Result userRegister(@RequestBody String json) {
-        OrdinaryUser ordinaryUser = JSON.parseObject(json, OrdinaryUser.class);
-        service.userRegister(ordinaryUser);
+        User user = JSON.parseObject(json, User.class);
+        service.userRegister(user);
         return Result.success();
     }
 }
