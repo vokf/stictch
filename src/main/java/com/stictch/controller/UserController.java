@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.stictch.entity.User;
 import com.stictch.entity.Result;
 import com.stictch.service.UserService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 @CrossOrigin
+@Log4j
 public class UserController {
     private UserService service;
 
@@ -30,11 +32,6 @@ public class UserController {
         this.service = service;
     }
 
-//    @RequestMapping("all")
-//    public List<User> all() {
-//        return service.findAll();
-//    }
-
 
     /**
      * 登录
@@ -42,7 +39,7 @@ public class UserController {
      * @param json json
      * @return result
      */
-    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/userLogin", method = {RequestMethod.POST, RequestMethod.GET})
     public Result userLogin(@RequestBody String json) {
         System.out.println(json);
         User user = JSON.parseObject(json, User.class);
@@ -63,5 +60,23 @@ public class UserController {
         User user = JSON.parseObject(json, User.class);
         service.userRegister(user);
         return Result.success();
+    }
+
+    /**
+     * 查询注册用户是否有重名的
+     *
+     * @param userName name
+     * @return string
+     */
+    @RequestMapping(value = "/findUserByName", method = {RequestMethod.GET})
+    public String findByName(String userName) {
+
+        User byUserName = service.findByUserName(userName);
+        if (byUserName == null) {
+            return "true";
+        } else {
+            return "false";
+        }
+
     }
 }
