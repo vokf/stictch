@@ -25,13 +25,6 @@ public class Role implements Serializable {
      * 角色名称
      */
     private String roleName;
-    /**
-     * userId
-     */
-    private Integer userId;
-    /**
-     * powerId
-     */
-    private Integer powerId;
-    private List<Power> powerList;
+
+    private List<Menu> powerList;
 }
