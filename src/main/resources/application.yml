@@ -7,7 +7,7 @@ spring:
     username: java
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-      # 连接池
+    # 连接池
     druid:
       max-active: 20
       initial-size: 5
@@ -28,6 +28,7 @@ spring:
 
 
 
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.stictch.entity
@@ -42,3 +43,12 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     jdbc-type-for-null: 'null'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
