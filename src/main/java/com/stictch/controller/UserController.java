@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.stictch.entity.User;
 import com.stictch.entity.Result;
 import com.stictch.service.UserService;
-import lombok.extern.log4j.Log4j;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 @CrossOrigin
-@Log4j
+@Slf4j
 public class UserController {
     private UserService service;
 
