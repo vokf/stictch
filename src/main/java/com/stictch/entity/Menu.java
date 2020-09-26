@@ -15,27 +15,32 @@ import java.io.Serializable;
 @ToString
 @Getter
 @Setter
-public class Power implements Serializable {
+public class Menu implements Serializable {
     /**
      * 权限的Id
      */
-    private Integer powerId;
+    private Integer menuId;
     /**
-     * 权限的名称
+     * url
      */
-    private String powerName;
+    private String url;
     /**
-     * 资源路径
+     * path
      */
     private String path;
     /**
-     * 权限的标题
+     * component
      */
-    private String powerTitle;
+    private String component;
     /**
-     * 角色Id
+     * name
      */
-    private Integer roleId;
+    private String name;
+    /**
+     * parentId
+     */
+    private Integer parentId;
+
     /**
      * 备注
      */
