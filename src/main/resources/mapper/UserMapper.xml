@@ -9,8 +9,11 @@
         <result property="gender" column="user_gender"/>
         <result property="age" column="user_age"/>
         <result property="phone" column="user_phone_num"/>
+        <result property="picture" column="user_picture"/>
         <result property="email" column="user_email"/>
         <result property="special" column="user_special"/>
+        <result property="companyLocation" column="user_company_location"/>
+        <result property="companyName"  column="user_company_name"/>
 
     </resultMap>
     <parameterMap id="map" type="com.stictch.entity.User">
