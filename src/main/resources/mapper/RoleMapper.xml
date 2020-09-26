@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stictch.dao.RoleDao">
-    <resultMap id="result" type="com.stictch.entity.Role">
-        <result property="userId" column="user_id"/>
+    <resultMap id="result" type="com.stictch.entity.MenuRole">
+        <result property="id" column="id"/>
         <result property="roleId" column="role_id"/>
-        <result property="powerId" column="power_id"/>
-        <result property="roleName" column="role_name"/>
-        <collection property="powerList" ofType="com.stictch.entity.Power">
-            <id property="powerId" column="power_id"/>
-            <result property="roleId" column="role_id"/>
-            <result property="path" column="path"/>
-            <result property="powerName" column="power_name"/>
-            <result property="powerTitle" column="power_title"/>
+        <result property="menuId" column="menu_id"/>
+
+        <collection property="menuList" ofType="com.stictch.entity.Menu">
+            <id property="menuId" column="menu_id"/>
+            <result property="url" column="menu_url"/>
+            <result property="path" column="menu_path"/>
+            <result property="component" column="menu_component"/>
+            <result property="name" column="menu_name"/>
+            <result property="parentId" column="parent_id"/>
+            <result property="remark" column="remark"/>
         </collection>
     </resultMap>
     <select id="findPower" resultMap="result">
-        select * from power,role where role.power_id = power.power_id;
+        select * from menu,menu_role where menu.menu_id = menu_role.menu_id  ;
     </select>
 
 </mapper>
