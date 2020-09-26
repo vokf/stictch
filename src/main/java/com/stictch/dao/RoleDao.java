@@ -1,6 +1,6 @@
 package com.stictch.dao;
 
-import com.stictch.entity.Power;
+import com.stictch.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,5 +15,5 @@ import java.util.List;
 @Mapper
 public interface RoleDao {
 
-    List<Power> findPower();
+    List<Menu> findPower();
 }
