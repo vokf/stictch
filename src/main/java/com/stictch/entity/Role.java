@@ -26,5 +26,5 @@ public class Role implements Serializable {
      */
     private String roleName;
 
-    private List<Menu> powerList;
+
 }
