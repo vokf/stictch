@@ -19,5 +19,5 @@ public class MenuRole {
     private Integer id;
     private Integer menuId;
     private Integer roleId;
-    private List<Menu> menuList;
+
 }
