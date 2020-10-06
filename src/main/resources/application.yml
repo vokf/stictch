@@ -25,7 +25,12 @@ spring:
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       use-global-data-source-stat: true
       max-wait: 60000
+  security:
 
+
+    user:
+      name: use1
+      password: 123456
 
 
 
@@ -52,3 +57,10 @@ management:
   endpoint:
     health:
       show-details: always
+logging:
+  pattern:
+
+    level: info
+
+
+
