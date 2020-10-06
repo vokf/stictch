@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author demo
@@ -45,4 +46,6 @@ public class Menu implements Serializable {
      * 备注
      */
     private String remark;
+    private List<Role> roles;
+    private List<Menu> children;
 }
