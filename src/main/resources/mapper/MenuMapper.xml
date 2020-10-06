@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.MenuDao">
+
+    <resultMap id="baseMap" type="com.stictch.entity.Menu">
+        <id property="menuId" column="menu_id" jdbcType="INTEGER"/>
+        <result property="url" column="menu_url" jdbcType="VARCHAR"/>
+        <result property="path" column="menu_path" jdbcType="VARCHAR"/>
+        <result property="component" column="menu_component" jdbcType="VARCHAR"/>
+        <result property="name" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+
+
+    </resultMap>
+    <resultMap id="menus2" type="com.stictch.entity.Menu" extends="baseMap">
+        <collection property="children" ofType="com.stictch.entity.Menu">
+            <id property="menuId" column="menu_id2" jdbcType="INTEGER"/>
+
+            <result property="url" column="menu_url2" jdbcType="VARCHAR"/>
+            <result property="path" column="menu_path2" jdbcType="VARCHAR"/>
+            <result property="component" column="menu_component2" jdbcType="VARCHAR"/>
+            <result property="name" column="menu_name2" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id2" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark2" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+    <resultMap id="menuWithRole" type="com.stictch.entity.Menu" extends="baseMap">
+        <collection property="roles" ofType="com.stictch.entity.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+        </collection>
+    </resultMap>
+    <resultMap id="menuWithChildren" type="com.stictch.entity.Menu" extends="baseMap">
+        <id property="menuId" column="id1"/>
+        <result property="name" column="name1"/>
+        <collection property="children" ofType="com.stictch.entity.Menu">
+            <id property="menuId" column="id2"/>
+            <result property="name" column="name2"/>
+            <collection property="children" ofType="com.stictch.entity.Menu">
+                <id property="menuId" column="id3"/>
+                <result property="name" column="name3"/>
+            </collection>
+        </collection>
+
+    </resultMap>
+    <select id="getAllMenus" resultMap="menuWithChildren">
+        select m1.menu_id   as id1,
+               m1.menu_path,
+               m1.menu_component,
+               m1.menu_url,
+               m1.menu_name as name1,
+               m2.menu_id   as id2,
+               m2.menu_path,
+               m2.menu_component,
+               m2.menu_url,
+               m2.menu_name as name2,
+               m3.menu_id   as id3,
+               m3.menu_path,
+               m3.menu_component,
+               m3.menu_url,
+               m3.menu_name as name3
+        from menu m1,
+             menu m2,
+             menu m3
+        where m1.menu_id = m2.parent_id
+          and m2.menu_id = m3.parent_id
+          and m3.enable = true
+        order by m1.menu_id, m2.menu_id, m3.menu_id
+    </select>
+    <select id="getMenuByUserId" resultMap="menus2">
+        select distinct m1.*,
+                        m2.menu_id        as id2,
+                        m2.menu_component as component2,
+                        m2.enable         as enable2,
+                        m2.menu_name      as name2,
+                        m2.parent_Id      as parentId2,
+                        m2.menu_path      as path2
+        from menu m1,
+             menu m2,
+             user_role hrr,
+             menu_role mr
+        where m1.menu_id = m2.parent_Id
+          and hrr.id = #{Id}
+          and hrr.role_id = mr.role_id
+          and mr.menu_id = m2.menu_id
+          and m2.enable = true
+        order by m1.menu_id, m2.menu_id
+
+
+    </select>
+    <select id="getAllMenusWithRole" resultMap="menuWithRole">
+        select m.*,
+               r.role_id   as rid,
+               r.role_name as rname
+        from menu m,
+             menu_role mr,
+             role r
+        where m.menu_id = mr.menu_id
+          and mr.role_id = r.role_id
+        order by m.menu_id
+
+    </select>
+    <select id="getMenusByRoleId" resultType="java.lang.Integer">
+        select menu_id
+        from menu_role
+        where role_id = #{roleId}
+    </select>
+
+
+</mapper>
