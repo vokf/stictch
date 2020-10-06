@@ -13,8 +13,14 @@
         <result property="email" column="user_email"/>
         <result property="special" column="user_special"/>
         <result property="companyLocation" column="user_company_location"/>
-        <result property="companyName"  column="user_company_name"/>
+        <result property="companyName" column="user_company_name"/>
 
+    </resultMap>
+    <resultMap id="userWithRole" type="com.stictch.entity.User" extends="user">
+        <collection property="roles" ofType="com.stictch.entity.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+        </collection>
     </resultMap>
     <parameterMap id="map" type="com.stictch.entity.User">
 
@@ -57,25 +63,70 @@
         </trim>
     </sql>
 
-    <!--    <insert id="add" parameterType="cn.edu.svtcc.entity.User" statementType="CALLABLE">-->
-<!--        {call register(#{userId},#{userName},#{passWord},#{sex},#{age},#{phoneNum},#{email},#{address},#{role})}-->
-<!--    </insert>-->
-<!--    <delete id="delete" statementType="CALLABLE">-->
-<!--        {call deleteUserById(#{user_id})}-->
-<!--    </delete>-->
-<!--    <select id="findById" resultType="cn.edu.svtcc.entity.User" resultMap="user" statementType="CALLABLE">-->
-<!--        {call findById(#{user_id})}-->
-<!--    </select>-->
+
     <select id="findByUserName" parameterType="String" resultMap="user">
-        select user_id,user_name from user where
-            <if test="userName!=null and userName !=''">
-                user_name = #{userName}
-            </if>
+        select user_id,user_name,user_password from user where
+        <if test="userName!=null and userName !=''">
+            user_name = #{userName}
+        </if>
     </select>
-    <select id="userLogin"  resultMap="user" parameterMap="map">
-        select user_name,user_password from user where user_name = #{userName} and user_password = sha1(md5(#{passWord}));
+    <select id="userLogin" resultMap="user" parameterMap="map">
+        select user_name, user_password
+        from user
+        where user_name = #{userName}
+          and user_password = #{passWord};
     </select>
+    <select id="getUserRolesById" resultType="com.stictch.entity.Role">
+        select role.*, user.user_id, user_role.*
+        from role
+                 left join user_role on role.role_id = user_role.role_id
+                 left join user on user_role.user_id = user.user_id
+        where user.user_id = #{id}
+        #         select r.*
+#         from role r,
+#              user_role hrr,
+#              user u left join user_role ur on r.role_id = ur.role_id
+#         where hrr.role_id = r.role_id
+#           and u.user_id = #{id}
+
+    </select>
+    <select id="loadUserByUserName" resultMap="user">
+        select *
+        from user
+        where user_name = #{userName}
+    </select>
+    <select id="getAllUsers" resultMap="userWithRole">
+        select u.user_id,
+        u.user_name,
+        u.user_age,
+        u.user_gender,
+        u.user_phone,
+        u.user_picture,
+        u.user_company_name,
+        u.user_company_location,
+        u.user_email,
+        u.user_special
+        from user u
+        left join user_role hrr on u.user_id = hrr.user_id
+        left join role r on hrr.role_id = r.role_id
+        where u.user_id != #{userId}
+        <if test="keywords !=null">and u.user_name like concat('%',#{keywords},'%')</if>
+        order by u.user_id
+    </select>
+    <select id="findUserById" resultMap="userWithRole" parameterType="Integer">
+        select r.role_id, u.user_name, u.user_age, u.user_gender,u. user_phone, u.user_picture,u. user_company_name,
+        u.user_company_location, u.user_email,u. user_special ,r.role_name from user u
+        left join user_role ur on u.user_id =
+        ur.user_id
+        left join role r on ur.role_id = r.role_id
+        where
+        <if test="userId == 0 ">
+            u.user_id=#{userId}
+        </if>
+    </select>
+
     <insert id="userRegister" parameterMap="map">
-        insert into user(user_name, user_password, user_phone, user_email) values (#{userName},sha1(md5(#{passWord})),#{phone},#{email});
+        insert into user(user_name, user_password, user_phone, user_email)
+        values (#{userName}, (#{passWord}), #{phone}, #{email});
     </insert>
 </mapper>
