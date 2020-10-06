@@ -1,5 +1,6 @@
 package com.stictch.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 /**
  * @author demo
@@ -72,12 +74,14 @@ public class User implements Serializable, UserDetails {
 
     /**
      * 用来获取当前用户所具有的角色
+     *
      * @return
      */
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles){
+        for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return authorities;
@@ -112,4 +116,6 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+
 }
