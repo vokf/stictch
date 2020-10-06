@@ -1,6 +1,8 @@
 package com.stictch.service;
 
+import com.stictch.entity.Role;
 import com.stictch.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,24 +14,53 @@ import java.util.List;
  */
 
 public interface UserService {
-    /**
-     * 注册前查询该用户是否重名
-     * @param userName name
-     * @return user
-     */
-    User findByUserName(String userName);
+
 
     /**
-     * 登录
-     * @param user user
-     * @return user
+     * 查询所有
+     *
+     * @return all
      */
-    User userLogin(User user);
+    User findByUserName(@Param("userName") String userName);
+
+    /**
+     * @param userName
+     * @param password
+     * @return
+     */
+    User userLogin(String userName, String password);
 
     /**
      * 注册
+     *
      * @param user user
      * @return int
      */
     int userRegister(User user);
+
+    /**
+     * @param id
+     * @return
+     */
+    List<Role> getUserRolesById(Integer id);
+
+    /**
+     * @param userName
+     * @return
+     */
+    User loadUserByUserName(String userName);
+
+    /**
+     * @param userId
+     * @param keywords
+     * @return
+     */
+    List<User> getAllUsers(@Param("userId") Integer userId, @Param("keywords") String keywords);
+
+    /**
+     * 通过用户名查询该用户的所有信息
+     * @param userId
+     * @return
+     */
+    List<User> findUserById(@Param("userId" ) Integer userId);
 }
