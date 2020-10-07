@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author demo
@@ -51,7 +53,7 @@ public class UserController {
         User result = service.userLogin(user.getUsername(), user.getPassword());
 
 
-        return result != null ? RespBean.ok("登录成功",(result.getUserId())) : RespBean.error("登陆失败");
+        return result != null ? RespBean.ok("登录成功", (result.getUserId())) : RespBean.error("登陆失败");
 
     }
 
@@ -100,4 +102,11 @@ public class UserController {
         System.out.println(session.toString());
         VerificationCode.output(image, resp.getOutputStream());
     }
+
+    @RequestMapping(value = "/findById")
+    public List<User> findById(Integer id) {
+        System.out.println("ID是"+id);
+        return service.findUserById(id);
+    }
+
 }
