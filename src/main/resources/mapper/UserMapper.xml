@@ -8,7 +8,7 @@
         <result property="passWord" column="user_password"/>
         <result property="gender" column="user_gender"/>
         <result property="age" column="user_age"/>
-        <result property="phone" column="user_phone_num"/>
+        <result property="phone" column="user_phone"/>
         <result property="picture" column="user_picture"/>
         <result property="email" column="user_email"/>
         <result property="special" column="user_special"/>
@@ -114,13 +114,13 @@
         order by u.user_id
     </select>
     <select id="findUserById" resultMap="userWithRole" parameterType="Integer">
-        select r.role_id, u.user_name, u.user_age, u.user_gender,u. user_phone, u.user_picture,u. user_company_name,
+        select r.*,u.user_id, u.user_name, u.user_age, u.user_gender,u.user_phone, u.user_picture,u. user_company_name,
         u.user_company_location, u.user_email,u. user_special ,r.role_name from user u
         left join user_role ur on u.user_id =
         ur.user_id
         left join role r on ur.role_id = r.role_id
         where
-        <if test="userId == 0 ">
+        <if test="userId != 0 ">
             u.user_id=#{userId}
         </if>
     </select>
