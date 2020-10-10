@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             User user = dao.findByUserName(userName);
             if (user != null && encoder.matches(password, user.getPassword())) {
+
                 return user;
             } else {
                 return null;
