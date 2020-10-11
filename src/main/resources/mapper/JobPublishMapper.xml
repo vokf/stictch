@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.JobPublishDao">
+    <resultMap id="base" type="com.stictch.entity.JobPublish">
+        <id property="publishId" jdbcType="INTEGER" column="publish_id"/>
+        <result property="phone" column="role_id" jdbcType="INTEGER"/>
+        <result property="user" column="publish_user" jdbcType="VARCHAR"/>
+        <result property="time" column="publish_time" jdbcType="VARCHAR"/>
+        <result property="basic" column="publish_required_basic" jdbcType="VARCHAR"/>
+        <result property="specialRequired" column="menu_id" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>
