@@ -8,6 +8,39 @@
         <result property="user" column="publish_user" jdbcType="VARCHAR"/>
         <result property="time" column="publish_time" jdbcType="VARCHAR"/>
         <result property="basic" column="publish_required_basic" jdbcType="VARCHAR"/>
-        <result property="specialRequired" column="menu_id" jdbcType="INTEGER"/>
+        <result property="specialRequired" column="publish_required_special" jdbcType="INTEGER"/>
     </resultMap>
+    <parameterMap id="param" type="com.stictch.entity.JobPublish">
+        <parameter property="basic" resultMap="base"/>
+    </parameterMap>
+    <insert id="addJob">
+        insert into job_publish(publish_user, publish_time, publish_required_basic,
+                                publish_required_special, publish_phone)
+        values (#{user}, #{time}, #{basic}, #{specialRequired}, #{phone});
+    </insert>
+    <update id="updateJob" parameterType="com.stictch.entity.JobPublish">
+        update job_publish set where 1=1
+        <if test="phone != null">
+            publish_phone = #{phone}
+        </if>
+        <if test="user = null">
+            publish_user = #{user}
+        </if>
+        <if test="basic != null">
+            publish_required_basic=#{basic}
+        </if>
+        <if test="specialRequired != null">
+            publish_required_special=#{specialRequired}
+        </if>
+        where publish_id = #{publishId}
+    </update>
+    <delete id="deleteJob">
+        delete
+        from job_publish
+        where publish_id = #{id}
+    </delete>
+    <select id="findAllJob" resultMap="base">
+        select job_publish.*
+        from job_publish
+    </select>
 </mapper>
