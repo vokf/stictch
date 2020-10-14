@@ -19,9 +19,7 @@ public class RespBean implements Serializable {
     private String msg;
     private Object obj;
 
-    public static RespBean build() {
-        return new RespBean();
-    }
+
 
     public static RespBean ok(String msg) {
         return new RespBean(200, msg, null);
@@ -39,14 +37,11 @@ public class RespBean implements Serializable {
         return new RespBean(500, msg, obj);
     }
 
-    private RespBean() {
-    }
 
-    private RespBean(Integer status, String msg, Object obj) {
+    public RespBean(Integer status, String msg, Object obj) {
         this.status = status;
         this.msg = msg;
         this.obj = obj;
     }
-
 
 }
