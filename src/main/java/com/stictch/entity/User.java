@@ -62,6 +62,10 @@ public class User implements Serializable, UserDetails {
      */
     private String companyLocation;
     /**
+     * 营业执照图片
+     */
+    private String license;
+    /**
      * 普通用户邮箱
      */
     private String email;
