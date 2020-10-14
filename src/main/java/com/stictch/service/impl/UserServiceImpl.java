@@ -56,6 +56,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return dao.findByUserName(userName);
     }
 
+    /**
+     *
+     * @param userName userName
+     * @param password password
+     * @return user
+     */
     @Override
     public User userLogin(String userName, String password) {
 
@@ -75,10 +81,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public int userRegister(User user) {
+    public Integer userRegister(User user) {
 
-        if (user.getUsername() == null || user.getPassword() == null || user.getPhone() == null || user.getEmail() == null) {
-
+        if (user == null) {
             log.error("用户名或者密码或者电话号码，或者邮箱为空");
             return 0;
         } else {
@@ -128,9 +133,43 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> findUserById(Integer userId) {
         if (userId == 0) {
+            log.error("findUserById() 方法出问题");
             return null;
         } else {
-           return dao.findUserById(userId);
+            return dao.findUserById(userId);
         }
+    }
+
+    @Override
+    public User companyUseraddLicense(User user) {
+        if (user == null) {
+            log.error("companyUseraddLicense()方法有问题");
+            return null;
+        } else {
+            return dao.companyUseraddLicense(user);
+        }
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        if (user == null) {
+            log.error("updateUser() 方法有问题");
+            return 0;
+        } else {
+            return dao.updateUser(user);
+        }
+
+    }
+
+    @Override
+    public Integer deleteUserById(int id) {
+        if (id == 0) {
+            log.error("deleteUserById()方法出问题");
+            return 0;
+        } else {
+            return dao.deleteUserById(id);
+        }
+
+
     }
 }
