@@ -41,21 +41,18 @@ public class UserController {
 
 
     /**
-     * @param
-     * @return
+     * 用户登录
+     *
+     * @param user User
+     * @return 登录成功
      */
     @RequestMapping(value = "/userLogin", produces = "application/json", method = RequestMethod.POST)
     public RespBean userLogin(@RequestBody User user) {
         System.out.println("passssss" + user);
-
-
         User result = service.userLogin(user.getUsername(), user.getPassword());
-
-
         return result != null ? RespBean.ok("登录成功", (result.getUserId())) : RespBean.error("登陆失败");
 
     }
-
 
     /**
      * 注册
@@ -66,8 +63,13 @@ public class UserController {
     @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json")
     public RespBean userRegister(@RequestBody String json) {
         User user = JSON.parseObject(json, User.class);
-        service.userRegister(user);
-        return RespBean.ok("注册成功");
+        Integer integer = service.userRegister(user);
+        if (integer > 0) {
+            return RespBean.ok("注册成功");
+        } else {
+            return RespBean.error("注册失败");
+        }
+
     }
 
     /**
@@ -90,6 +92,11 @@ public class UserController {
     }
 
 
+    /**
+     * 验证码
+     *
+     * @param request HttpServletRequest
+     */
     @GetMapping("/verifyCode")
     public void verifyCode(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         resp.setContentType("image/jpeg");
@@ -102,11 +109,55 @@ public class UserController {
         VerificationCode.output(image, resp.getOutputStream());
     }
 
-    @RequestMapping(value = "/findById" ,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/findById", produces = "application/json;charset=utf-8")
     public List<User> findById(Integer userId) {
-        System.out.println("ID是"+userId);
+        System.out.println("ID是" + userId);
         return service.findUserById(userId);
     }
 
+    @RequestMapping(value = "updateEnterpriseInfo")
+    public RespBean updateEnterprise(User user) {
+
+        if (user != null) {
+            User user1 = service.companyUseraddLicense(user);
+            if (user1 != null) {
+                return RespBean.ok("Ok");
+            } else {
+                return RespBean.ok("Error");
+            }
+        } else {
+            return RespBean.error("后台未接收到相关信息");
+        }
+    }
+
+    @RequestMapping(value = "updateUser")
+    public RespBean updateUser(User user) {
+        if (user != null) {
+            Integer i = service.updateUser(user);
+            if (i > 0) {
+                return RespBean.ok("OK");
+            } else {
+                return RespBean.error("Error");
+            }
+        } else {
+            return RespBean.error("后台未接收到数据");
+        }
+    }
+
+    @RequestMapping("deleteByUserId")
+    public RespBean deleteByUserId(int userId) {
+        if (userId != 0) {
+            int i = service.deleteUserById(userId);
+            if (i > 0) {
+                return RespBean.ok("OK");
+            } else {
+                return RespBean.error("Error");
+            }
+        } else {
+            return RespBean.error("后台Id有问题");
+        }
+
+
+    }
 
 }
