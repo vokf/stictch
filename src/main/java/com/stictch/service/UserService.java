@@ -82,5 +82,5 @@ public interface UserService {
      * @param id id
      * @return int
      */
-    Integer deleteUserById(int id);
+    Integer deleteUserById(Integer id);
 }
