@@ -21,17 +21,18 @@ spring:
       pool-prepared-statements: true
       #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
       filters: stat,wall
-      max-pool-prepared-statement-per-connection-size: 20
+      max-pool-prepared-statement-per-connection-size: 30
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       use-global-data-source-stat: true
       max-wait: 60000
-  security:
 
-
-    user:
-      name: use1
-      password: 123456
-
+  redis:
+    host: 192.168.153.102
+    password: 178834
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
 
 
 mybatis-plus:
@@ -61,6 +62,5 @@ logging:
   pattern:
 
     level: info
-
 
 
