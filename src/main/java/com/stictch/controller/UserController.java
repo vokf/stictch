@@ -116,7 +116,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "updateEnterpriseInfo")
-    public RespBean updateEnterprise(User user) {
+    public RespBean updateEnterprise(@RequestBody User user) {
 
         if (user != null) {
             User user1 = service.companyUseraddLicense(user);
@@ -131,7 +131,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "updateUser")
-    public RespBean updateUser(User user) {
+    public RespBean updateUser(@RequestBody User user) {
+
         if (user != null) {
             Integer i = service.updateUser(user);
             if (i > 0) {
@@ -145,7 +146,7 @@ public class UserController {
     }
 
     @RequestMapping("deleteByUserId")
-    public RespBean deleteByUserId(int userId) {
+    public RespBean deleteByUserId(Integer userId) {
         if (userId != 0) {
             int i = service.deleteUserById(userId);
             if (i > 0) {
