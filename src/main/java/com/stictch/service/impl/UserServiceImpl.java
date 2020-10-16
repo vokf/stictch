@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     /**
-     *
      * @param userName userName
      * @param password password
      * @return user
@@ -142,27 +141,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User companyUseraddLicense(User user) {
-        if (user == null) {
+        if (user.getLicense() != null && user.getCompanyName() != null && user.getCompanyLocation() != null) {
+            return dao.companyUseraddLicense(user);
+        } else {
             log.error("companyUseraddLicense()方法有问题");
             return null;
-        } else {
-            return dao.companyUseraddLicense(user);
         }
     }
 
     @Override
     public Integer updateUser(User user) {
-        if (user == null) {
+        if (user.getUserId() != null && user.getUsername() != null && user.getEmail() != null && user.getAge() != null) {
+            return dao.updateUser(user);
+        } else {
+
             log.error("updateUser() 方法有问题");
             return 0;
-        } else {
-            return dao.updateUser(user);
         }
 
     }
 
     @Override
-    public Integer deleteUserById(int id) {
+    public Integer deleteUserById(Integer id) {
         if (id == 0) {
             log.error("deleteUserById()方法出问题");
             return 0;
