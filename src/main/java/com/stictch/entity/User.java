@@ -1,6 +1,7 @@
 package com.stictch.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,15 +24,19 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class User implements Serializable, UserDetails {
 
     /**
      * 普通用户id
      */
+
     private Integer userId;
     /**
      * 普通用户昵称
      */
+
     private String userName;
     /**
      * 普通用户密码
@@ -93,12 +98,12 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getPassword() {
-        return passWord;
+        return this.passWord;
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return this.userName;
     }
 
     @Override
