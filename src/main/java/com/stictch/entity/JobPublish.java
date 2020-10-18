@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * @author demo
  * @title JobPublish
@@ -21,9 +23,14 @@ import lombok.ToString;
 public class JobPublish {
     @TableId(value = "publish_id", type = IdType.AUTO)
     private Integer publishId;
+    private String title;
+
     private String user;
     private String time;
     private String basic;
     private String specialRequired;
     private String phone;
+    private String address;
+    private String category;
+    private List<Position> positions;
 }
