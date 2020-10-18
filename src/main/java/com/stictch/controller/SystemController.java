@@ -29,4 +29,9 @@ public class SystemController {
 //    public List<Menu> getMenuByUserId() {
 //        return menuService.getMenuByUserId(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId());
 //    }
+
+    @RequestMapping("index")
+    public String index(){
+        return "index";
+    }
 }
