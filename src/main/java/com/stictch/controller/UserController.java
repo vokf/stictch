@@ -115,20 +115,7 @@ public class UserController {
         return service.findUserById(userId);
     }
 
-    @RequestMapping(value = "updateEnterpriseInfo")
-    public RespBean updateEnterprise(@RequestBody User user) {
 
-        if (user != null) {
-            User user1 = service.companyUseraddLicense(user);
-            if (user1 != null) {
-                return RespBean.ok("Ok");
-            } else {
-                return RespBean.ok("Error");
-            }
-        } else {
-            return RespBean.error("后台未接收到相关信息");
-        }
-    }
 
     @RequestMapping(value = "updateUser")
     public RespBean updateUser(@RequestBody User user) {
@@ -159,6 +146,11 @@ public class UserController {
         }
 
 
+    }
+
+    @RequestMapping("/findUserById")
+    public List<User> findUserById(Integer id) {
+        return service.findUserById(id);
     }
 
 }
