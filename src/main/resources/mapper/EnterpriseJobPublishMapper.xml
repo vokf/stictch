@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.EnterpriseJobPublishDao">
+
+    <resultMap type="com.stictch.entity.EnterpriseJobPublish" id="EnterpriseJobPublishMap">
+        <id property="publishId" column="publish_id" jdbcType="INTEGER"/>
+        <result property="publishTitle" column="publish_title" jdbcType="VARCHAR"/>
+        <result property="publishUser" column="publish_user" jdbcType="VARCHAR"/>
+        <result property="publishTime" column="publish_time" jdbcType="VARCHAR"/>
+        <result property="publishRequiredBasic" column="publish_required_basic" jdbcType="VARCHAR"/>
+        <result property="publishRequiredSpecial" column="publish_required_special" jdbcType="VARCHAR"/>
+        <result property="publishPhone" column="publish_phone" jdbcType="VARCHAR"/>
+        <result property="publishAddress" column="publish_address" jdbcType="VARCHAR"/>
+        <result property="category" column="category" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--查询单个-->
+    <select id="queryById" resultMap="EnterpriseJobPublishMap">
+        select publish_id,
+               publish_title,
+               publish_user,
+               publish_time,
+               publish_required_basic,
+               publish_required_special,
+               publish_phone,
+               publish_address,
+               category
+        from design.enterprise_job_publish
+        where publish_id = #{publishId}
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EnterpriseJobPublishMap">
+        select
+        publish_id, publish_title, publish_user, publish_time, publish_required_basic, publish_required_special,
+        publish_phone, publish_address, category
+        from design.enterprise_job_publish
+        <where>
+            <if test="publishId != null">
+                and publish_id = #{publishId}
+            </if>
+            <if test="publishTitle != null and publishTitle != ''">
+                and publish_title = #{publishTitle}
+            </if>
+            <if test="publishUser != null and publishUser != ''">
+                and publish_user = #{publishUser}
+            </if>
+            <if test="publishTime != null and publishTime != ''">
+                and publish_time = #{publishTime}
+            </if>
+            <if test="publishRequiredBasic != null and publishRequiredBasic != ''">
+                and publish_required_basic = #{publishRequiredBasic}
+            </if>
+            <if test="publishRequiredSpecial != null and publishRequiredSpecial != ''">
+                and publish_required_special = #{publishRequiredSpecial}
+            </if>
+            <if test="publishPhone != null and publishPhone != ''">
+                and publish_phone = #{publishPhone}
+            </if>
+            <if test="publishAddress != null and publishAddress != ''">
+                and publish_address = #{publishAddress}
+            </if>
+            <if test="category != null and category != ''">
+                and category = #{category}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="publishId" useGeneratedKeys="true" parameterType="com.stictch.entity.EnterpriseJobPublish">
+        insert into design.enterprise_job_publish(publish_title, publish_user, publish_time, publish_required_basic,
+                                                  publish_required_special, publish_phone, publish_address, category)
+        values (#{publishTitle}, #{publishUser}, #{publishTime}, #{publishRequiredBasic}, #{publishRequiredSpecial},
+                #{publishPhone}, #{publishAddress}, #{category})
+    </insert>
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="com.stictch.entity.EnterpriseJobPublish">
+        update design.enterprise_job_publish
+        <set>
+            <if test="publishTitle != null and publishTitle != ''">
+                publish_title = #{publishTitle},
+            </if>
+            <if test="publishUser != null and publishUser != ''">
+                publish_user = #{publishUser},
+            </if>
+            <if test="publishTime != null and publishTime != ''">
+                publish_time = #{publishTime},
+            </if>
+            <if test="publishRequiredBasic != null and publishRequiredBasic != ''">
+                publish_required_basic = #{publishRequiredBasic},
+            </if>
+            <if test="publishRequiredSpecial != null and publishRequiredSpecial != ''">
+                publish_required_special = #{publishRequiredSpecial},
+            </if>
+            <if test="publishPhone != null and publishPhone != ''">
+                publish_phone = #{publishPhone},
+            </if>
+            <if test="publishAddress != null and publishAddress != ''">
+                publish_address = #{publishAddress},
+            </if>
+            <if test="category != null and category != ''">
+                category = #{category},
+            </if>
+        </set>
+        where publish_id = #{publishId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from design.enterprise_job_publish
+        where publish_id = #{publishId}
+    </delete>
+</mapper>
