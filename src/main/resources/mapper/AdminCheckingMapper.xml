@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.AdminCheckingDao">
+
+    <resultMap type="com.stictch.entity.AdminChecking" id="AdminCheckingMap">
+        <id property="adminCheckId" column="admin_check_id" jdbcType="INTEGER"/>
+        <result property="adminCheckingTitle" column="admin_checking_title" jdbcType="VARCHAR"/>
+        <result property="adminCheckOperate" column="admin_check_operate" jdbcType="VARCHAR"/>
+        <result property="adminCheckContent" column="admin_check_content" jdbcType="VARCHAR"/>
+        <result property="adminCheckUserType" column="admin_check_user_type" jdbcType="VARCHAR"/>
+        <result property="adminCheckUser" column="admin_check_user" jdbcType="VARCHAR"/>
+        <result property="adminCheckTime" column="admin_check_time" jdbcType="TIMESTAMP"/>
+        <result property="adminCheckRemark" column="admin_check_remark" jdbcType="VARCHAR"/>
+        <result property="adminCheckSuccess" column="admin_check_success" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdminCheckingMap" parameterType="Integer">
+        select admin_check_id,
+               admin_checking_title,
+               admin_check_operate,
+               admin_check_content,
+               admin_check_user_type,
+               admin_check_user,
+               admin_check_time,
+               admin_check_remark,
+               admin_check_success
+        from design.admin_checking
+        where admin_check_id = #{adminCheckId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdminCheckingMap" parameterType="com.stictch.entity.AdminChecking">
+        select
+        admin_check_id, admin_checking_title, admin_check_operate, admin_check_content, admin_check_user_type,
+        admin_check_user, admin_check_time, admin_check_remark, admin_check_success
+        from design.admin_checking
+        <where>
+            <if test="adminCheckId != null">
+                and admin_check_id = #{adminCheckId}
+            </if>
+            <if test="adminCheckingTitle != null and adminCheckingTitle != ''">
+                and admin_checking_title = #{adminCheckingTitle}
+            </if>
+            <if test="adminCheckOperate != null and adminCheckOperate != ''">
+                and admin_check_operate = #{adminCheckOperate}
+            </if>
+            <if test="adminCheckContent != null and adminCheckContent != ''">
+                and admin_check_content = #{adminCheckContent}
+            </if>
+            <if test="adminCheckUserType != null and adminCheckUserType != ''">
+                and admin_check_user_type = #{adminCheckUserType}
+            </if>
+            <if test="adminCheckUser != null and adminCheckUser != ''">
+                and admin_check_user = #{adminCheckUser}
+            </if>
+            <if test="adminCheckTime != null">
+                and admin_check_time = #{adminCheckTime}
+            </if>
+            <if test="adminCheckRemark != null and adminCheckRemark != ''">
+                and admin_check_remark = #{adminCheckRemark}
+            </if>
+            <if test="adminCheckSuccess != null">
+                and admin_check_success = #{adminCheckSuccess}
+            </if>
+        </where>
+    </select>
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="adminCheckId" useGeneratedKeys="true" parameterType="com.stictch.entity.AdminChecking">
+        insert into design.admin_checking(admin_checking_title, admin_check_operate, admin_check_content,
+                                          admin_check_user_type, admin_check_user, admin_check_time, admin_check_remark,
+                                          admin_check_success)
+        values (#{adminCheckingTitle}, #{adminCheckOperate}, #{adminCheckContent}, #{adminCheckUserType},
+                #{adminCheckUser}, #{adminCheckTime}, #{adminCheckRemark}, #{adminCheckSuccess})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="com.stictch.entity.AdminChecking">
+        update design.admin_checking
+        <set>
+            <if test="adminCheckingTitle != null and adminCheckingTitle != ''">
+                admin_checking_title = #{adminCheckingTitle},
+            </if>
+            <if test="adminCheckOperate != null and adminCheckOperate != ''">
+                admin_check_operate = #{adminCheckOperate},
+            </if>
+            <if test="adminCheckContent != null and adminCheckContent != ''">
+                admin_check_content = #{adminCheckContent},
+            </if>
+            <if test="adminCheckUserType != null and adminCheckUserType != ''">
+                admin_check_user_type = #{adminCheckUserType},
+            </if>
+            <if test="adminCheckUser != null and adminCheckUser != ''">
+                admin_check_user = #{adminCheckUser},
+            </if>
+            <if test="adminCheckTime != null">
+                admin_check_time = #{adminCheckTime},
+            </if>
+            <if test="adminCheckRemark != null and adminCheckRemark != ''">
+                admin_check_remark = #{adminCheckRemark},
+            </if>
+            <if test="adminCheckSuccess != null">
+                admin_check_success = #{adminCheckSuccess},
+            </if>
+        </set>
+        where admin_check_id = #{adminCheckId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="integer">
+        delete
+        from design.admin_checking
+        where admin_check_id = #{adminCheckId}
+    </delete>
+
+</mapper>
