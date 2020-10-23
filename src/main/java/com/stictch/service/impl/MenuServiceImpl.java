@@ -1,7 +1,7 @@
 package com.stictch.service.impl;
 
 import com.stictch.dao.MenuDao;
-import com.stictch.dao.MenuRoleDao;
+
 import com.stictch.entity.Menu;
 import com.stictch.entity.User;
 import com.stictch.service.MenuService;
@@ -30,12 +30,6 @@ public class MenuServiceImpl implements MenuService {
         this.dao = dao;
     }
 
-    private MenuRoleDao role;
-
-    @Autowired
-    public void setRole(MenuRoleDao role) {
-        this.role = role;
-    }
 
     @Override
     public List<Menu> getAllMenus() {
