@@ -139,15 +139,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    @Override
-    public User companyUseraddLicense(User user) {
-        if (user.getLicense() != null && user.getCompanyName() != null && user.getCompanyLocation() != null) {
-            return dao.companyUseraddLicense(user);
-        } else {
-            log.error("companyUseraddLicense()方法有问题");
-            return null;
-        }
-    }
+
 
     @Override
     public Integer updateUser(User user) {
