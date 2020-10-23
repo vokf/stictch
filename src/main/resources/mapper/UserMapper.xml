@@ -26,7 +26,7 @@
 
 
     <select id="findByUserName" parameterType="String" resultMap="user">
-        select user_id,user_name,user_password from user where
+        select user_id,user_name,user_password from user_userinfo where
         <if test="userName!=null and userName !=''">
             user_name = #{userName}
         </if>
@@ -38,23 +38,26 @@
           and user_password = #{passWord};
     </select>
     <select id="getUserRolesById" resultType="com.stictch.entity.Role">
-        select role.*, user.user_id, user_role.*
+        select role.*, user_userinfo.user_id, user_role.*
         from role
                  left join user_role on role.role_id = user_role.role_id
                  left join user on user_role.user_id = user.user_id
-        where user.user_id = #{id}
-        #         select r.*
-#         from role r,
-#              user_role hrr,
-#              user u left join user_role ur on r.role_id = ur.role_id
-#         where hrr.role_id = r.role_id
-#           and u.user_id = #{id}
+        <where >
+            <if test="id != null ">
+                user_userinfo.user_id = #{id]
+            </if>
+        </where>
 
     </select>
     <select id="loadUserByUserName" resultMap="user">
         select *
-        from user
-        where user_name = #{userName}
+        from user_userinfo
+        <where>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName}
+            </if>
+        </where>
+
     </select>
     <select id="getAllUsers" resultMap="userWithRole">
         select u.user_id,
@@ -67,31 +70,37 @@
         u.user_company_location,
         u.user_email,
         u.user_special
-        from user u
+        from user_userinfo u
         left join user_role hrr on u.user_id = hrr.user_id
         left join role r on hrr.role_id = r.role_id
-        where u.user_id != #{userId}
+        <where>
+            <if test=" userId != null and userId != ''">
+                u.user_id = #{userId}
+            </if>
+        </where>
+
         <if test="keywords !=null">and u.user_name like concat('%',#{keywords},'%')</if>
         order by u.user_id
     </select>
     <select id="findUserById" resultMap="userWithRole" parameterType="Integer">
         select r.*,u.user_id, u.user_name, u.user_age, u.user_gender,u.user_phone, u.user_picture,u. user_company_name,
-        u.user_company_location, u.user_email,u. user_special ,r.role_name from user u
+        u.user_company_location, u.user_email,u. user_special ,r.role_name from user_userinfo u
         left join user_role ur on u.user_id =
         ur.user_id
         left join role r on ur.role_id = r.role_id
-        where
-        <if test="userId != 0 ">
-            u.user_id=#{userId}
-        </if>
+        <where>
+            <if test="userId != null and userId != '' ">
+                u.user_id=#{userId}
+            </if>
+        </where>
     </select>
 
     <insert id="userRegister" parameterType="com.stictch.entity.User">
-        insert into user(user_name, user_password, user_phone, user_email)
+        insert into user_userinfo(user_name, user_password, user_phone, user_email)
         values (#{userName}, (#{passWord}), #{phone}, #{email})
     </insert>
-    <update id="companyUseraddLicense" parameterType="com.stictch.entity.User">
-        update user
+    <update id="updateUser" parameterType="com.stictch.entity.User">
+        update user_userinfo
         <set>
             <if test="companyName != null and companyName != ''">
                 user_company_name=#{companyName},
@@ -102,12 +111,6 @@
             <if test="license != null">
                 user_company_license=#{license},
             </if>
-        </set>
-        where user_id=#{userId}
-    </update>
-    <update id="updateUser" parameterType="com.stictch.entity.User" statementType="PREPARED">
-        update user
-        <set>
             <if test="userName != null and userName != ''">
                 user_name = #{userName},
             </if>
@@ -120,23 +123,25 @@
             <if test="special != null and special != ''">
                 user_special= #{special},
             </if>
-
-        </set>
-        where user_id = #{userId}
-    </update>
-    <update id="userAddAvatar" parameterType="com.stictch.entity.User">
-        update user
-        <set>
             <if test="avatar != null and  avater != ''">
                 user_picture=#{avatar}
             </if>
-
         </set>
-        where user_id#{userId}
+        <where>
+            <if test="userId != null and userId != '' ">
+                user_id= #{userId}
+            </if>
+        </where>
     </update>
+
+
     <delete id="deleteUserById" parameterType="Integer">
         delete
-        from user
-        where user_id = #{id}
+        from user_userinfo
+        <where>
+            <if test="id != null and id != ''">
+                user_id = #{id}
+            </if>
+        </where>
     </delete>
 </mapper>
