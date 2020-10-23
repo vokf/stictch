@@ -2,7 +2,6 @@ package com.stictch.service;
 
 import com.stictch.entity.Role;
 import com.stictch.entity.User;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public interface UserService {
      *
      * @return all
      */
-    User findByUserName(@Param("userName") String userName);
+    User findByUserName( String userName);
 
     /**
      * @param userName
@@ -55,20 +54,15 @@ public interface UserService {
      * @param keywords
      * @return
      */
-    List<User> getAllUsers(@Param("userId") Integer userId, @Param("keywords") String keywords);
+    List<User> getAllUsers(Integer userId,  String keywords);
 
     /**
      * 通过用户名查询该用户的所有信息
      * @param userId
      * @return
      */
-    List<User> findUserById(@Param("userId" ) Integer userId);
-    /**
-     * 用户企业认证
-     * @param user
-     * @return 认证成功
-     */
-    User companyUseraddLicense(User user);
+    List<User> findUserById(Integer userId);
+    
 
     /**
      * 修改完善用户信息
