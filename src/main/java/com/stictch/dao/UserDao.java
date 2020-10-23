@@ -68,13 +68,7 @@ public interface UserDao {
      */
     List<User> findUserById(@Param("userId") Integer userId);
 
-    /**
-     * 用户企业认证
-     *
-     * @param user
-     * @return 认证成功
-     */
-    User companyUseraddLicense(User user);
+   
 
     /**
      * 修改完善用户信息
@@ -92,11 +86,4 @@ public interface UserDao {
      */
     Integer deleteUserById(Integer id);
 
-    /**
-     * 添加头像
-     * @param avatar
-     * @param userId
-     * @return
-     */
-    Integer userAddAvatar(String avatar,Integer userId);
 }
