@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stictch.dao.UserPositionDao">
+
+    <resultMap type="com.stictch.entity.UserPosition" id="UserPositionMap">
+        <id property="positionId" column="position_id" jdbcType="INTEGER"/>
+        <result property="positionName" column="position_name" jdbcType="VARCHAR"/>
+        <result property="positionIntroduce" column="position_introduce" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserPositionMap">
+        select position_id,
+               position_name,
+               position_introduce
+        from design.user_position
+        where position_id = #{positionId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserPositionMap">
+        select position_id,
+               position_name,
+               position_introduce
+        from design.user_position
+        limit #{offset}, #{limit}
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserPositionMap">
+        select
+        position_id, position_name, position_introduce
+        from design.user_position
+        <where>
+            <if test="positionId != null">
+                and position_id = #{positionId}
+            </if>
+            <if test="positionName != null and positionName != ''">
+                and position_name = #{positionName}
+            </if>
+            <if test="positionIntroduce != null and positionIntroduce != ''">
+                and position_introduce = #{positionIntroduce}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="positionId" useGeneratedKeys="true">
+        insert into design.user_position(position_name, position_introduce)
+        values (#{positionName}, #{positionIntroduce})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update design.user_position
+        <set>
+            <if test="positionName != null and positionName != ''">
+                position_name = #{positionName},
+            </if>
+            <if test="positionIntroduce != null and positionIntroduce != ''">
+                position_introduce = #{positionIntroduce},
+            </if>
+        </set>
+        where position_id = #{positionId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from design.user_position
+        where position_id = #{positionId}
+    </delete>
+</mapper>
