@@ -11,8 +11,6 @@
         <result property="name" column="menu_name" jdbcType="VARCHAR"/>
         <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
-
-
     </resultMap>
     <resultMap id="menus2" type="com.stictch.entity.Menu" extends="baseMap">
         <collection property="children" ofType="com.stictch.entity.Menu">
@@ -61,9 +59,9 @@
                m3.menu_component,
                m3.menu_url,
                m3.menu_name as name3
-        from menu m1,
-             menu m2,
-             menu m3
+        from user_menu m1,
+             user_menu m2,
+             user_menu m3
         where m1.menu_id = m2.parent_id
           and m2.menu_id = m3.parent_id
           and m3.enable = true
@@ -77,8 +75,8 @@
                         m2.menu_name      as name2,
                         m2.parent_Id      as parentId2,
                         m2.menu_path      as path2
-        from menu m1,
-             menu m2,
+        from user_menu m1,
+             user_menu m2,
              user_role hrr,
              menu_role mr
         where m1.menu_id = m2.parent_Id
@@ -94,9 +92,9 @@
         select m.*,
                r.role_id   as rid,
                r.role_name as rname
-        from menu m,
+        from user_menu m,
              menu_role mr,
-             role r
+             sys_role r
         where m.menu_id = mr.menu_id
           and mr.role_id = r.role_id
         order by m.menu_id
