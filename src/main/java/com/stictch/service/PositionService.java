@@ -16,6 +16,14 @@ import java.util.List;
 public interface PositionService {
 
     /**
+     * 通过实体作为筛选条件查询
+     *
+     *
+     * @return 对象列表
+     */
+    List<UserPosition> queryAll();
+
+    /**
      * 通过ID查询单条数据
      *
      * @param positionId 主键
