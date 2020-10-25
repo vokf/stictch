@@ -2,6 +2,8 @@ package com.stictch.service.impl;
 
 import com.stictch.entity.UserArticle;
 import com.stictch.service.UserArticleService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,7 +13,8 @@ import java.util.List;
  * @description
  * @date 2020/10/23/10:49
  */
-
+@Service
+@Transactional(rollbackFor = Exception.class)
 public class UserArticleServiceImpl implements UserArticleService {
     @Override
     public UserArticle queryById(Long articleId) {
