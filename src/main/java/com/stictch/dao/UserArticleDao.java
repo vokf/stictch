@@ -65,4 +65,7 @@ public interface UserArticleDao {
      * @return 影响行数
      */
     int deleteById(Long articleId);
+
+    List<UserArticle> queryAll();
+
 }
