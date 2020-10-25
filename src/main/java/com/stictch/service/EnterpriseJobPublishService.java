@@ -3,6 +3,8 @@ package com.stictch.service;
 
 import com.stictch.entity.EnterpriseJobPublish;
 
+import java.util.List;
+
 /**
  * @author demo
  * @title EnterpriseJobPublishService
@@ -27,7 +29,7 @@ public interface EnterpriseJobPublishService {
      * @param enterpriseJobPublish 实例对象
      * @return 实例对象
      */
-    EnterpriseJobPublish insert(EnterpriseJobPublish enterpriseJobPublish);
+    Integer insert(EnterpriseJobPublish enterpriseJobPublish);
 
     /**
      * 修改数据
@@ -43,5 +45,10 @@ public interface EnterpriseJobPublishService {
      * @param publishId 主键
      * @return 是否成功
      */
-    boolean deleteById(Long publishId);
+    Integer deleteById(Long publishId);
+
+    List<EnterpriseJobPublish> queryAll(EnterpriseJobPublish enterpriseJobPublish);
+
+    List<EnterpriseJobPublish> queryAll();
+    Integer getCount();
 }
