@@ -41,6 +41,12 @@ public class EnterpriseJobPublish implements Serializable {
      * 专业要求
      */
     private String publishRequiredSpecial;
+
+    /**
+     * 职责
+     */
+    private String publishDuty;
+    private String salary;
     /**
      * 联系方式
      */
