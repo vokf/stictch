@@ -29,17 +29,7 @@
         select
         position_id, position_name, position_introduce
         from design.user_position
-        <where>
-            <if test="positionId != null">
-                and position_id = #{positionId}
-            </if>
-            <if test="positionName != null and positionName != ''">
-                and position_name = #{positionName}
-            </if>
-            <if test="positionIntroduce != null and positionIntroduce != ''">
-                and position_introduce = #{positionIntroduce}
-            </if>
-        </where>
+
     </select>
 
     <!--新增所有列-->
