@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 职位(UserPosition)表数据库访问层
+ *
  * @author demo
  * @title UserPositionDao
  * @description
@@ -40,10 +41,9 @@ public interface UserPositionDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param userPosition 实例对象
      * @return 对象列表
      */
-    List<UserPosition> queryAll(UserPosition userPosition);
+    List<UserPosition> queryAll();
 
     /**
      * 新增数据
