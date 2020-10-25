@@ -27,7 +27,7 @@ public class SysLog implements Serializable {
     /**
      * 操作时间
      */
-    private Date sysLogOperateTime;
+    private String sysLogOperateTime;
     /**
      * 干了什么操作
      */
