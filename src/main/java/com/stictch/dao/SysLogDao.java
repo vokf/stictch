@@ -47,4 +47,6 @@ public interface SysLogDao {
      * @return 影响行数
      */
     int deleteById(Long sysLogId);
+
+    List<SysLog> queryAll();
 }
