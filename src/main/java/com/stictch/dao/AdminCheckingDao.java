@@ -56,4 +56,10 @@ public interface AdminCheckingDao {
      * @return 影响行数
      */
     Integer deleteById(Long adminCheckId);
+
+    /**
+     *
+     * @return
+     */
+    List<AdminChecking> queryAll();
 }
