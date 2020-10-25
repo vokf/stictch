@@ -58,5 +58,13 @@ public interface EnterpriseJobPublishDao {
      */
     Integer deleteById(Long publishId);
 
+    /**
+     * 查询所有
+     *
+     * @return
+     */
+    List<EnterpriseJobPublish> queryAll();
+
+    Integer getCount();
 
 }
