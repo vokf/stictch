@@ -1,16 +1,10 @@
 package com.stictch.controller;
 
 import com.stictch.config.FastDFSClient;
-import com.stictch.entity.RespBean;
-import com.stictch.entity.User;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +43,7 @@ public class UploadController {
             result.put("url", url);
             result.put("title", upfile.getOriginalFilename());
             result.put("original", upfile.getOriginalFilename());
+            result.put("location",upfile.getOriginalFilename());
             return result;
         } catch (Exception e) {
             e.printStackTrace();
