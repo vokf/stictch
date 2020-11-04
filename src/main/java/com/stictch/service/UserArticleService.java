@@ -36,7 +36,7 @@ public interface UserArticleService {
      * @param userArticle 实例对象
      * @return 实例对象
      */
-    UserArticle insert(UserArticle userArticle);
+    Integer insert(UserArticle userArticle);
 
     /**
      * 修改数据
@@ -44,7 +44,7 @@ public interface UserArticleService {
      * @param userArticle 实例对象
      * @return 实例对象
      */
-    UserArticle update(UserArticle userArticle);
+    Integer update(UserArticle userArticle);
 
     /**
      * 通过主键删除数据
@@ -52,5 +52,9 @@ public interface UserArticleService {
      * @param articleId 主键
      * @return 是否成功
      */
-    boolean deleteById(Long articleId);
+    Integer deleteById(Long articleId);
+
+    List<UserArticle> allArticle();
+
+    List<UserArticle> allArticle(UserArticle article);
 }
