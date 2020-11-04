@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author demo
@@ -33,6 +35,7 @@ import java.util.List;
 @Slf4j
 public class UserController {
     private UserService service;
+    private Map<String, String> map;
 
     @Autowired
     public void setService(UserService service) {
@@ -47,11 +50,27 @@ public class UserController {
      * @return 登录成功
      */
     @RequestMapping(value = "/userLogin", produces = "application/json", method = RequestMethod.POST)
-    public RespBean userLogin(@RequestBody User user) {
-        System.out.println("passssss" + user);
-        User result = service.userLogin(user.getUsername(), user.getPassword());
-        return result != null ? RespBean.ok("登录成功", (result.getUserId())) : RespBean.error("登陆失败");
+    public Map<String, String> userLogin(@RequestBody User user) {
+        map = new HashMap<>();
+        User byUserName = service.findByUserName(user.getUsername());
+        if (byUserName == null){
+            map.put("msg","没有此用户");
 
+        }
+        User result = service.userLogin(user.getUsername(), user.getPassword());
+
+        if (result != null) {
+            String userId = String.valueOf(result.getUserId());
+            String username = result.getUsername();
+            map.put("msg", "success");
+            map.put("userId", userId);
+            map.put("userName", username);
+            return map;
+        } else {
+            map.put("msg", "error");
+            map.put("code", "500");
+            return map;
+        }
     }
 
     /**
@@ -114,7 +133,6 @@ public class UserController {
         System.out.println("ID是" + userId);
         return service.findUserById(userId);
     }
-
 
 
     @RequestMapping(value = "updateUser")
