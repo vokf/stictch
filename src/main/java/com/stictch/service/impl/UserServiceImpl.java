@@ -63,19 +63,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Override
     public User userLogin(String userName, String password) {
-
-        if (userName == null || password == null) {
-            log.error("用户名或者密码为空");
-            return null;
-        } else {
-            User user = dao.findByUserName(userName);
-            if (user != null && encoder.matches(password, user.getPassword())) {
-
-                return user;
-            } else {
-                return null;
-            }
+        User user = dao.loadUserByUserName(userName);
+        if (encoder.matches(password, user.getPassword())) {
+            System.out.println("+++++++++++++");
+            return user;
         }
+        else {
+            return null;
+        }
+
+
+
 
     }
 
@@ -87,6 +85,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return 0;
         } else {
             String encode = encoder.encode(user.getPassword());
+
             user.setPassWord(encode);
             return dao.userRegister(user);
 
@@ -138,7 +137,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return dao.findUserById(userId);
         }
     }
-
 
 
     @Override
