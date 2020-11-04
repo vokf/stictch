@@ -31,7 +31,7 @@ public interface UserDao {
      * @param user user
      * @return User
      */
-    User userLogin(User user);
+    User userLogin(String userName, String password);
 
     /**
      * 注册
