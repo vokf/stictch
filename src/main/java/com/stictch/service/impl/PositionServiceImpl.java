@@ -39,23 +39,18 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public List<UserPosition> queryAllByLimit(int offset, int limit) {
-        return null;
+    public Integer insert(UserPosition userPosition) {
+        return positionDao.insert(userPosition);
     }
 
     @Override
-    public UserPosition insert(UserPosition userPosition) {
-        return null;
+    public Integer update(UserPosition userPosition) {
+        return positionDao.update(userPosition);
     }
 
     @Override
-    public UserPosition update(UserPosition userPosition) {
-        return null;
-    }
-
-    @Override
-    public boolean deleteById(Long positionId) {
-        return false;
+    public Integer deleteById(Long positionId) {
+        return positionDao.deleteById(positionId);
     }
 
     @Override
