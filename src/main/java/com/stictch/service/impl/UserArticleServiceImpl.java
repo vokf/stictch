@@ -1,7 +1,9 @@
 package com.stictch.service.impl;
 
+import com.stictch.dao.UserArticleDao;
 import com.stictch.entity.UserArticle;
 import com.stictch.service.UserArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,14 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class UserArticleServiceImpl implements UserArticleService {
+
+    UserArticleDao dao;
+
+    @Autowired
+    public void setDao(UserArticleDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public UserArticle queryById(Long articleId) {
         return null;
@@ -27,17 +37,28 @@ public class UserArticleServiceImpl implements UserArticleService {
     }
 
     @Override
-    public UserArticle insert(UserArticle userArticle) {
+    public Integer insert(UserArticle userArticle) {
+        return dao.insert(userArticle);
+    }
+
+    @Override
+    public Integer update(UserArticle userArticle) {
         return null;
     }
 
     @Override
-    public UserArticle update(UserArticle userArticle) {
-        return null;
+    public Integer deleteById(Long articleId) {
+        return 0;
+    }
+
+
+    @Override
+    public List<UserArticle> allArticle() {
+        return dao.queryAll();
     }
 
     @Override
-    public boolean deleteById(Long articleId) {
-        return false;
+    public List<UserArticle> allArticle(UserArticle article) {
+        return dao.queryAll(article);
     }
 }
