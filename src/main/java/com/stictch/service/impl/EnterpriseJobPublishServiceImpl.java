@@ -30,7 +30,8 @@ public class EnterpriseJobPublishServiceImpl implements EnterpriseJobPublishServ
 
     @Override
     public EnterpriseJobPublish queryById(Long publishId) {
-        return null;
+
+        return dao.queryById(publishId);
     }
 
     @Override
@@ -45,16 +46,15 @@ public class EnterpriseJobPublishServiceImpl implements EnterpriseJobPublishServ
     }
 
     @Override
-    public EnterpriseJobPublish update(EnterpriseJobPublish enterpriseJobPublish) {
-        return null;
+    public Integer update(EnterpriseJobPublish enterpriseJobPublish) {
+        return dao.update(enterpriseJobPublish);
     }
 
     @Override
     public Integer deleteById(Long publishId) {
-        if (publishId != null && publishId != 0){
+        if (publishId != null && publishId != 0) {
             return dao.deleteById(publishId);
-        }
-        else {
+        } else {
             log.error("publishId是空的 ");
             return 0;
         }
