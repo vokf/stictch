@@ -32,10 +32,10 @@
         </if>
     </select>
     <select id="userLogin" resultMap="user">
-        select user_name, user_password
-        from user
+        select user_name, user_password,user_id
+        from user_userinfo
         where user_name = #{userName}
-          and user_password = #{passWord};
+          and user_password = #{password};
     </select>
     <select id="getUserRolesById" resultType="com.stictch.entity.Role">
         select role.*, user_userinfo.user_id, user_role.*
@@ -87,7 +87,7 @@
         u.user_company_location, u.user_email,u. user_special ,r.role_name from user_userinfo u
         left join user_role ur on u.user_id =
         ur.user_id
-        left join role r on ur.role_id = r.role_id
+        left join sys_role r on ur.role_id = r.role_id
         <where>
             <if test="userId != null and userId != '' ">
                 u.user_id=#{userId}
