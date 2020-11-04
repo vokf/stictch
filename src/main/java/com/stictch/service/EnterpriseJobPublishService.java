@@ -37,7 +37,7 @@ public interface EnterpriseJobPublishService {
      * @param enterpriseJobPublish 实例对象
      * @return 实例对象
      */
-    EnterpriseJobPublish update(EnterpriseJobPublish enterpriseJobPublish);
+    Integer update(EnterpriseJobPublish enterpriseJobPublish);
 
     /**
      * 通过主键删除数据
