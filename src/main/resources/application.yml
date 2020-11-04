@@ -26,15 +26,19 @@ spring:
       use-global-data-source-stat: true
       max-wait: 60000
 
-  redis:
-    host: 192.168.153.102
-    password: 178834
-    port: 6379
-    jedis:
-      pool:
-        max-active: 8
+#  redis:
+#    host: 192.168.153.102
+#    password: 178834
+#    port: 6379
+#    jedis:
+#      pool:
+#        max-active: 8
   devtools:
+    add-properties: false
     restart:
+
+      poll-interval: 2000ms
+      quiet-period: 1999ms
       enabled: true
 
 
@@ -62,6 +66,11 @@ management:
     health:
       show-details: always
 logging:
+
+  level:
+    sql: debug
+    web: debug
+
   pattern:
 
     level: info
