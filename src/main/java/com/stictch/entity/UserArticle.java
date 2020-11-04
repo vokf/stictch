@@ -44,7 +44,7 @@ public class UserArticle implements Serializable {
     /**
      * 上传用户Id
      */
-    private Integer articleUploadUserId;
+    private String  userName;
     /**
      * 分类
      */
