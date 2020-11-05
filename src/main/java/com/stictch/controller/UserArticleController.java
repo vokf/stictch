@@ -44,8 +44,12 @@ public class UserArticleController {
     public List<UserAddArticle> findAll() {
         return service.queryAll();
     }
-    @GetMapping("")
+    @PostMapping("/selectArticle")
     public List<UserAddArticle> queryAll(@RequestBody UserAddArticle addArticle){
         return service.queryAll(addArticle);
+    }
+    @GetMapping("selcetById")
+    public UserAddArticle queryById(Long userArticleId){
+        return service.queryById(userArticleId);
     }
 }
