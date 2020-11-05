@@ -61,10 +61,13 @@ public class UserController {
 
         if (result != null) {
             String userId = String.valueOf(result.getUserId());
+
             String username = result.getUsername();
+            String picture = result.getPicture();
             map.put("msg", "success");
             map.put("userId", userId);
             map.put("userName", username);
+            map.put("picture",picture);
             return map;
         } else {
             map.put("msg", "error");
