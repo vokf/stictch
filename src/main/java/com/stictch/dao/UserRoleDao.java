@@ -1,5 +1,6 @@
 package com.stictch.dao;
 
+import com.stictch.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,6 @@ public interface UserRoleDao {
      * @return
      */
     Integer addRole(@Param("userId") Integer userId, @Param("roleIds") Integer[] roleIds);
+
+    UserRole findRoleByUserId(Integer UserId);
 }
