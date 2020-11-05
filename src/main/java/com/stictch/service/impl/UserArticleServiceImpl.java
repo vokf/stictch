@@ -28,7 +28,8 @@ public class UserArticleServiceImpl implements UserArticleService {
 
     @Override
     public UserArticle queryById(Long articleId) {
-        return null;
+
+        return dao.queryById(articleId);
     }
 
     @Override
