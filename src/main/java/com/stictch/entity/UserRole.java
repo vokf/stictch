@@ -20,4 +20,5 @@ public class UserRole {
     private Integer userId;
     private Integer roleId;
     private List<User> userList;
+    private Role roleName;
 }
