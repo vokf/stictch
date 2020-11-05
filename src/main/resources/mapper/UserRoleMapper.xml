@@ -7,10 +7,31 @@
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="role_id" property="roleId" jdbcType="INTEGER"/>
     </resultMap>
+    <resultMap id="demo" type="com.stictch.entity.UserRole" extends="base">
+        <collection property="roleName" ofType="com.stictch.entity.Role">
+            <result property="roleName" jdbcType="VARCHAR" column="role_name"/>
+            <result property="roleId" jdbcType="VARCHAR" column="role_id"/>
+        </collection>
+    </resultMap>
     <insert id="addRole">
         insert into user_role ( user_id, role_id)
         <foreach collection="roleIds" item="roleId" separator=",">
             (#{userId},#{roleId})
         </foreach>
     </insert>
+    <select id="findRoleByUserId" resultMap="demo" parameterType="Integer">
+        SELECT
+            sys_role.role_name,
+            sys_role.role_id,
+
+            user_role.user_id
+        FROM
+            sys_role
+                INNER JOIN
+            user_role
+            ON
+                sys_role.role_id = user_role.role_id
+        WHERE
+            user_role.user_id = #{UserId}
+    </select>
 </mapper>
